@@ -6,4 +6,4 @@ If you're only working with a fragment shader, then you scene can simple compose
 
 I just started this, so it's very much WIP.
 
-Based upon the excellent [Vite](https://vitejs.dev/) and [R3F](https://github.com/pmndrs/react-three-fiber).
+Based upon the excellent [Vite](https://vitejs.dev/), this lovely [Vite boilerplate](https://github.com/TheSwordBreaker/vite-reactts-eslint-prettier), and [R3F](https://github.com/pmndrs/react-three-fiber).
