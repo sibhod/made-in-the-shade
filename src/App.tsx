@@ -1,52 +1,52 @@
-import './App.css';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React, { useMemo } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { MainView } from 'views/MainView';
+import { ThreeSceneView } from 'views/ThreeSceneView';
 
-import React, { useState } from 'react';
-
-import logo from './logo.svg';
-
-function App() {
-  const [count, setCount] = useState(0);
+export const App = () => {
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode: 'light',
+          primary: {
+            main: '#ff97c6',
+            contrastText: 'rgba(67,22,131,0.87)',
+          },
+          secondary: {
+            main: '#41ffff',
+          },
+          background: {
+            default: '#fdfbfb',
+            paper: '#ffffff',
+          },
+          divider: '#8ef4ff',
+          text: {
+            primary: '#1D3557',
+          },
+        },
+        shape: {
+          borderRadius: 0,
+        },
+        typography: {
+          fontFamily: '"Roboto Mono", monospace',
+        },
+      }),
+    [],
+  );
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="header">
-          🚀 Vite + React + Typescript 🤘 & <br />
-          Eslint 🔥+ Prettier
-        </p>
-
-        <div className="body">
-          <button onClick={() => setCount((count) => count + 1)}>
-            🪂 Click me : {count}
-          </button>
-
-          <p> Don&apos;t forgot to install Eslint and Prettier in Your Vscode.</p>
-
-          <p>
-            Mess up the code in <code>App.tsx </code> and save the file.
-          </p>
-          <p>
-            <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer">
-              Learn React
-            </a>
-            {' | '}
-            <a
-              className="App-link"
-              href="https://vitejs.dev/guide/features.html"
-              target="_blank"
-              rel="noopener noreferrer">
-              Vite Docs
-            </a>
-          </p>
-        </div>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route path="/" element={<MainView />}>
+            <Route index element={<span>Select Something</span>} />
+            <Route path="/scene/:scene" element={<ThreeSceneView />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
+          </Route>
+        </Routes>
+      </ThemeProvider>
+    </BrowserRouter>
   );
-}
-
-export default App;
+};
