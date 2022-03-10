@@ -1,30 +1,52 @@
-varying vec3 v_color;
+const float vertDeform = 0.75;
+const vec4 activeColors = vec4(0.1, 0.2, 0.3, 1.0);
+const vec3 baseColor = vec3(0.1, 0.2, 0.3);
+const vec2 globalNoiseFreq = vec2(1.0, 2.0);
+const float globalNoiseSpeed = 0.0005;
+
+// deform consts
+const float deformIncline = 0.5;
+const float offsetTop = -0.5;
+const float offsetBottom = -0.5;
+const vec2 noiseFreq = vec2(3.0, 4.0);
+const float noiseAmp = 2.0;
+const float noiseSpeed = 10.0;
+const float noiseFlow = 3.0;
+const float noiseSeed = 125.0;
+
+uniform float uTime;
+uniform vec4 uResolution;
+
+varying vec3 vColor;
+
+#include blend.glsl;
+#include noise.glsl;
 
 void main() {
-  float time = u_time * u_global.noiseSpeed;
-  vec2 noiseCoord = resolution * uvNorm * u_global.noiseFreq;
-  vec2 st = 1. - uvNorm.xy;
+  float time = uTime * globalNoiseSpeed;
+  vec2 noiseCoord = uResolution.xy * uv * globalNoiseFreq;
+  vec2 st = 1. - uv.xy;
 
   // Tilting the plane
   //
   // Front-to-back tilt
-  float tilt = resolution.y / 2.0 * uvNorm.y;
+  float tilt = uResolution.y / 2.0 * uv.y;
 
   // Left-to-right angle
-  float incline = resolution.x * uvNorm.x / 2.0 * u_vertDeform.incline;
+  float incline = uResolution.x * uv.x / 2.0 * deformIncline;
 
   // Up-down shift to offset incline
-  float offset = resolution.x / 2.0 * u_vertDeform.incline * mix(u_vertDeform.offsetBottom, u_vertDeform.offsetTop, uv.y);
+  float offset = uResolution.x / 2.0 * deformIncline * mix(offsetBottom, offsetTop, uv.y);
 
   // Vertex noise
   float noise = snoise(vec3(
-      noiseCoord.x * u_vertDeform.noiseFreq.x + time * u_vertDeform.noiseFlow,
-    noiseCoord.y * u_vertDeform.noiseFreq.y,
-    time * u_vertDeform.noiseSpeed + u_vertDeform.noiseSeed
-  )) * u_vertDeform.noiseAmp;
+      noiseCoord.x * noiseFreq.x + time * noiseFlow,
+    noiseCoord.y * noiseFreq.y,
+    time * noiseSpeed + noiseSeed
+  )) * noiseAmp;
 
   // Fade noise to zero at edges
-  noise *= 1.0 - pow(abs(uvNorm.y), 2.0);
+  noise *= 1.0 - pow(abs(uv.y), 2.0);
   
   // Clamp to 0
   noise = max(0.0, noise);
@@ -36,12 +58,12 @@ void main() {
   );
 
   // Vertex color, to be passed to fragment shader
-  if (u_active_colors[0] == 1.) {
-      v_color = u_baseColor;
+  if (activeColors[0] == 1.) {
+      vColor = baseColor;
   }
 
   for (int i = 0; i < u_waveLayers_length; i++) {
-      if (u_active_colors[i + 1] == 1.) {
+      if (activeColors[i + 1] == 1.) {
         WaveLayers layer = u_waveLayers[i];
       float noise = smoothstep(
           layer.noiseFloor,
@@ -52,7 +74,7 @@ void main() {
           time * layer.noiseSpeed + layer.noiseSeed
         )) / 2.0 + 0.5
       );
-      v_color = blendNormal(v_color, layer.color, pow(noise, 4.));
+      vColor = blendNormal(vColor, layer.color, pow(noise, 4.));
     }
   }
 

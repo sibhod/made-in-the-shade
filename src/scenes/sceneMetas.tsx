@@ -2,6 +2,11 @@ import { SceneMeta } from 'scenes/SceneMeta';
 
 export const sceneMetas: SceneMeta[] = [
   {
+    name: 'Book of Shaders',
+    route: 'book-of-shaders',
+    componentPath: 'scenes/BookDemos',
+  },
+  {
     name: 'Color Shift',
     route: 'color-shift',
     componentPath: 'scenes/ColorShift',

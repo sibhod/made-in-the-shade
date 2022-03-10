@@ -119,11 +119,13 @@ vec3 blendLighten(vec3 base, vec3 blend, float opacity) {
 
 // Linear burn
 float blendLinearBurn(float base, float blend) {
-  // Note : Same implementation as BlendSubtractf return max(base+blend-1.0,0.0);
+  // Note : Same implementation as BlendSubtractf 
+  return max(base+blend-1.0,0.0);
 }
 
 vec3 blendLinearBurn(vec3 base, vec3 blend) {
-  // Note : Same implementation as BlendSubtract  return max(base+blend-vec3(1.0),vec3(0.0));
+  // Note : Same implementation as BlendSubtract  
+  return max(base+blend-vec3(1.0),vec3(0.0));
 }
 
 vec3 blendLinearBurn(vec3 base, vec3 blend, float opacity) {
@@ -131,11 +133,13 @@ vec3 blendLinearBurn(vec3 base, vec3 blend, float opacity) {
 }
 // Linear dodge
 float blendLinearDodge(float base, float blend) {
-  // Note : Same implementation as BlendAddf  return min(base+blend,1.0);
+  // Note : Same implementation as BlendAddf  
+  return min(base+blend,1.0);
 }
 
 vec3 blendLinearDodge(vec3 base, vec3 blend) {
-  // Note : Same implementation as BlendAdd return min(base+blend,vec3(1.0));
+  // Note : Same implementation as BlendAdd 
+  return min(base+blend,vec3(1.0));
 }
 
 vec3 blendLinearDodge(vec3 base, vec3 blend, float opacity) {
@@ -148,7 +152,11 @@ float blendLinearLight(float base, float blend) {
 }
 
 vec3 blendLinearLight(vec3 base, vec3 blend) {
-  return vec3(blendLinearLight(base.r,blend.r),blendLinearLight(base.g,blend.g),blendLinearLight(base.b,blend.b));
+  return vec3(
+    blendLinearLight(base.r,blend.r),
+    blendLinearLight(base.g,blend.g),
+    blendLinearLight(base.b,blend.b)
+  );
 }
 
 vec3 blendLinearLight(vec3 base, vec3 blend, float opacity) {
