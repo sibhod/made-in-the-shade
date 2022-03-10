@@ -27,10 +27,13 @@ export const App = () => {
           },
         },
         shape: {
-          borderRadius: 0,
+          borderRadius: 12,
         },
         typography: {
           fontFamily: '"Roboto Mono", monospace',
+          fontWeightLight: 100,
+          fontWeightRegular: 300,
+          fontWeightMedium: 500,
         },
       }),
     [],

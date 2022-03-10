@@ -4,5 +4,8 @@
   "eslint.alwaysShowStatus": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
+  },
+  "[glsl]": {
+    "editor.defaultFormatter": "mjohns.clang-format"
   }
 }

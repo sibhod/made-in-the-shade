@@ -16,10 +16,10 @@ export const Navigation = () => {
   return (
     <Card
       sx={{
-        boxShadow: 'none',
+        boxShadow: '0px 2px 6px -2px rgb(93 151 130 / 40%)',
         position: 'absolute',
-        top: 2,
-        right: 22,
+        top: 'calc(50% - 352px)',
+        left: 'calc(50% - 100px - 300px)',
         zIndex: 100,
         minWidth: 200,
       }}
@@ -33,6 +33,11 @@ export const Navigation = () => {
           return sceneMetasMap.get(value)?.name ?? 'Select a scene...';
         }}
         sx={{
+          color: '#4d1f67',
+          fontWeight: 300,
+          fontSize: 14,
+          WebkitFontSmoothing: 'subpixel-antialiased',
+          letterSpacing: '-0.5px',
           border: 'none !important',
           '& *': {
             border: 'none !important',
@@ -40,10 +45,13 @@ export const Navigation = () => {
           '& .MuiList-root': {
             boxShadow: 'none',
           },
+          '& .MuiSelect-select': {
+            padding: '12px',
+          },
         }}
       >
         {sceneMetas.map(({ name, route }) => (
-          <MenuItem value={route} key={route}>
+          <MenuItem value={route} key={route} disabled={route !== 'blend-modes'}>
             {name}
           </MenuItem>
         ))}

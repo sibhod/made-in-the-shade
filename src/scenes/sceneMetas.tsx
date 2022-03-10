@@ -1,10 +1,13 @@
+import { BlendMode } from 'materials/BlendMode';
 import { SceneMeta } from 'scenes/SceneMeta';
 
 export const sceneMetas: SceneMeta[] = [
   {
-    name: 'Book of Shaders',
-    route: 'book-of-shaders',
-    componentPath: 'scenes/BookDemos',
+    name: 'Blend Modes',
+    route: 'blend-modes',
+    controlsComponentPath: 'containers/BlendModeSelect',
+    componentPath: 'scenes/BlendModes',
+    uniforms: { uBlendMode: { value: BlendMode.NORMAL } },
   },
   {
     name: 'Color Shift',

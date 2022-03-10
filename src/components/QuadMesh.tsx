@@ -9,7 +9,7 @@ export type QuadShaderMesh = Mesh<BufferGeometry, ShaderMaterialImpl>;
 export const QuadMesh = forwardRef<QuadShaderMesh, ShaderMaterialProps>(
   (props, forwardedRef) => {
     const { uniforms } = useSceneContext();
-    console.log('forwardedRef', forwardedRef);
+
     return (
       <ScreenQuad ref={forwardedRef}>
         <ShaderMaterial

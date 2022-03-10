@@ -1,5 +1,6 @@
 import { CanvasCard } from 'components/CanvasCard';
 import { InsetFlexContainer } from 'components/InsetContainer';
+import { ControlsContainer } from 'containers/ControlsContainer';
 import { SceneContextProvider } from 'contexts/SceneContext';
 import { useActiveSceneMeta } from 'hooks/useActiveSceneMeta';
 import React from 'react';
@@ -10,6 +11,7 @@ export const ThreeSceneView = () => {
 
   return (
     <InsetFlexContainer>
+      <ControlsContainer />
       <CanvasCard width={800} height={600}>
         <SceneContextProvider meta={meta}>
           <SuspenseScene />

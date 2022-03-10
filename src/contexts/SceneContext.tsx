@@ -51,8 +51,10 @@ export const SceneContextProvider = ({ children, meta }: Props) => {
     );
   });
 
+  const mergedUniforms = meta?.uniforms ? { ...uniforms, ...meta.uniforms } : uniforms;
+
   return (
-    <SceneContext.Provider value={{ meta, scene, uniforms }}>
+    <SceneContext.Provider value={{ meta, scene, uniforms: mergedUniforms }}>
       {children}
     </SceneContext.Provider>
   );

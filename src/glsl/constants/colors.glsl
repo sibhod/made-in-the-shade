@@ -1,0 +1,1 @@
+vec4 transparent = vec4(0.0);
