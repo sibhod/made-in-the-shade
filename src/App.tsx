@@ -44,7 +44,7 @@ export const App = () => {
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<MainView />}>
-            <Route index element={<span>Select Something</span>} />
+            <Route index element={<Navigate replace to="/scene/blend-modes" />} />
             <Route path="/scene/:scene" element={<ThreeSceneView />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Route>
