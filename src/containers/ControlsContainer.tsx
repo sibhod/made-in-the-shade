@@ -11,7 +11,6 @@ export const ControlsContainer = () => {
         : undefined,
     [meta?.controlsComponentPath],
   );
-  console.log(meta, ControlsComponent);
 
   return ControlsComponent ? (
     <Suspense fallback={false}>
